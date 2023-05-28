@@ -57,12 +57,11 @@ function onSearchForm(e) {
 
 function onLoadMore() {
   page += 1;
-  simpleLightBox.destroy();
+  simpleLightBox.refresh();
 
   fetch(q, page, perPage)
     .then(({ data }) => {
       createCard(data.hits);
-      simpleLightBox = new SimpleLightbox('.gallery a').refresh();
 
       const pagesTotal = Math.ceil(data.totalHits / perPage);
 
