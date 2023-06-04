@@ -16,7 +16,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let q = '';
 let page = 1;
-let simpleLightBox;
 const perPage = 40;
 const simpleLightbox = new SimpleLightbox('.gallery a')
 
@@ -42,7 +41,7 @@ function onSearchForm(e) {
         alertNoSuchImages();
       } else {
         createCard(data.hits);
-        simpleLightbox.refresh()
+        simpleLightbox.refresh();
         alertFound(data);
 
         if (data.totalHits > perPage) {
@@ -58,12 +57,11 @@ function onSearchForm(e) {
 
 function onLoadMore() {
   page += 1;
-  simpleLightBox.destroy();
 
   fetch(q, page, perPage)
     .then(({ data }) => {
       createCard(data.hits);
-      simpleLightbox.refresh()
+      simpleLightbox.refresh();
 
       const pagesTotal = Math.ceil(data.totalHits / perPage);
 
