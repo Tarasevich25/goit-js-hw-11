@@ -16,5 +16,5 @@ export function alertNoSuchImages() {
 }
 
 export function alertEndSearch() {
-  Notiflix.Notify.failure('Unfortunately this is the last image.');
+  Notiflix.Notify.failure('Sorry, this is the last page of your search.');
 }
