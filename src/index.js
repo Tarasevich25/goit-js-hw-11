@@ -18,6 +18,7 @@ let q = '';
 let page = 1;
 let simpleLightBox;
 const perPage = 40;
+const simpleLightbox = new SimpleLightbox('.gallery a')
 
 searchForm.addEventListener('submit', onSearchForm);
 btnAddLoad.addEventListener('click', onLoadMore);
@@ -41,7 +42,7 @@ function onSearchForm(e) {
         alertNoSuchImages();
       } else {
         createCard(data.hits);
-        simpleLightBox = new SimpleLightbox('.gallery').refresh();
+        simpleLightbox.refresh()
         alertFound(data);
 
         if (data.totalHits > perPage) {
@@ -62,7 +63,7 @@ function onLoadMore() {
   fetch(q, page, perPage)
     .then(({ data }) => {
       createCard(data.hits);
-      simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+      simpleLightbox.refresh()
 
       const pagesTotal = Math.ceil(data.totalHits / perPage);
 
