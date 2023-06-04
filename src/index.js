@@ -55,38 +55,19 @@ function onSearchForm(e) {
     });
 }
 
-async function onLoadMore() {
+function onLoadMore() {
   page += 1;
-let totalPage;
-try {
-  const responce = await pixabayAPI.getPhotosByQuery(page);
-  totalPage = responce.data.totalHits / pixabayAPI.perPage;
-  refs.galleryEl.insertAdjacentHTML(
-    'beforeend',
-    createGalleryCard(responce.data.hits)
-  );
-  simpleLightbox.refresh();
-  if (totalPage < page){
-    btnAddLoad.classList.add('is-hidden');
-    btnAddLoad.removeEventListener('click', onLoadMore);
-    alertEndSearch();
-    return;
-    }
-  }
-  catch (error){
-    console.log(error);
-  }
-//   fetch(q, page, perPage)
-//     .then(({ data }) => {
-//       createCard(data.hits);
-//       simpleLightbox.refresh();
+  fetch(q, page, perPage)
+    .then(({ data }) => {
+      createCard(data.hits);
+      simpleLightbox.refresh();
 
-//       const pagesTotal = Math.ceil(data.totalHits / perPage);
+      const pagesTotal = Math.ceil(data.totalHits / perPage);
 
-//       if (page > pagesTotal) {
-//         btnAddLoad.classList.add('is-hidden');
-//         alertEndSearch();
-//       }
-//     })
-//     .catch(error => console.log(error));
+      if (page > pagesTotal) {
+        btnAddLoad.classList.add('is-hidden');
+        alertEndSearch();
+      }
+    })
+    .catch(error => console.log(error));
 }
