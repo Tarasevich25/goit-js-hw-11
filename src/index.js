@@ -60,7 +60,7 @@ async function onLoadMore() {
 let totalPage;
 try {
   const responce = await pixabayAPI.getPhotosByQuery(page);
-  totalPage = response.data.totalHits / pixabayAPI.perPage;
+  totalPage = responce.data.totalHits / pixabayAPI.perPage;
   refs.galleryEl.insertAdjacentHTML(
     'beforeend',
     createGalleryCard(responce.data.hits)
