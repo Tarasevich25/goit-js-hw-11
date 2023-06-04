@@ -62,10 +62,11 @@ function onLoadMore() {
       createCard(data.hits);
       simpleLightbox.refresh();
 
-      const pagesTotal = Math.ceil(data.totalHits / perPage);
+      const pagesTotal = data.totalHits / perPage;
 
       if (page > pagesTotal) {
-        btnAddLoad.classList.add('is-hidden');
+        // btnAddLoad.classList.add('is-hidden');
+        btnAddLoad.style.display = 'none';
         alertEndSearch();
       }
     })
