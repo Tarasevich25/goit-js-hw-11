@@ -22,7 +22,7 @@ const simpleLightbox = new SimpleLightbox('.gallery a')
 searchForm.addEventListener('submit', onSearchForm);
 btnAddLoad.addEventListener('click', onLoadMore);
 
-function onSearchForm(e) {
+async function onSearchForm(e) {
   e.preventDefault();
   window.scrollTo({ top: 0 });
   page = 1;
@@ -30,13 +30,13 @@ function onSearchForm(e) {
   gallery.innerHTML = '';
   btnAddLoad.classList.add('hidden');
 
-  if (q === '') {
+  try { if (q === '') {
     alertEmptySearch();
     return;
   }
 
   fetch(q, page, perPage)
-    .then(({ data }) => {
+    (({ data }) => {
       if (data.totalHits === 0) {
         alertNoSuchImages();
       } else {
@@ -49,15 +49,19 @@ function onSearchForm(e) {
         }
       }
     })
-    .catch(error => console.log(error))
-    .finally(() => {
+  }
+    catch(error){
+      console.log(error);
+    }
+    finally {
       searchForm.reset();
-    });
+    };
 }
 
-function onLoadMore() {
+async function onLoadMore() {
   page += 1;
-  fetch(q, page, perPage)
+
+  try {fetch(q, page, perPage)
     .then(({ data }) => {
       createCard(data.hits);
       simpleLightbox.refresh();
@@ -70,5 +74,8 @@ function onLoadMore() {
         alertEndSearch();
       }
     })
-    .catch(error => console.log(error));
+  }
+    catch(error) {
+      console.log(error);
+    };
 }
